@@ -11,7 +11,7 @@ helpers do
     begin
       GitHub::User.get(login)
     rescue
-      raise Sinatra::NotFound
+      halt 404
     end
   end
 end
