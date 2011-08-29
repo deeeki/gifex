@@ -1,5 +1,6 @@
 var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-2995005-10']);
+_gaq.push(['_setAccount', 'UA-2995005-15']);
+_gaq.push(['_setDomainName', '.heroku.com']);
 _gaq.push(['_trackPageview']);
 
 (function() {
