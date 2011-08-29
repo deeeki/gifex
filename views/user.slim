@@ -1,0 +1,20 @@
+h3
+  a href="https://github.com/#{@u}" = @u
+  ''s followings feeds
+a href="#{@u}/export" = "Get OPML"
+= " (#{@followings.count} users)"
+ul
+  - @followings.each do |f|
+    li
+      a href="/#{f.login}" = f.login
+      ul
+        li
+          a href="https://github.com/#{f.login}" GitHub
+          '&nbsp;|
+          a href="https://github.com/#{f.login}.atom" feed
+          - @readers.each do |r|
+            '&nbsp;
+            a href=r.add_url("https://github.com/#{f.login}.atom")
+              img src="/images/#{r.image}"
+br
+a href="/" HOME

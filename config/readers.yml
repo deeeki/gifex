@@ -1,0 +1,23 @@
+---
+-
+  name: livedoor Reader
+  title: livedoor Readerで購読
+  add_url: http://reader.livedoor.com/subscribe/%s
+  encode: 0
+  url: http://reader.livedoor.com/
+  image: 117_20_1.gif
+-
+  name: Google リーダー
+  title: Google リーダーで購読
+  add_url: http://www.google.com/reader/view/feed/%s
+  encode: 1
+  url: http://www.google.com/reader/
+  image: add.gif
+-
+  name: My Yahoo!
+  title: Subscribe with My Yahoo!
+  add_url: http://add.my.yahoo.co.jp/rss?url=%s
+  encode: 0
+  url: http://my.yahoo.co.jp/
+  image: myYahoo.gif
+
