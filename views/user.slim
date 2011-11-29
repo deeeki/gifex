@@ -1,8 +1,11 @@
-h3
-  a href="https://github.com/#{@u}" = @u
-  ''s followings feeds
-a href="#{@u}/export" = "Get OPML"
-= " (#{@followings.count} users)"
+div.page-header
+  h1
+    a href="https://github.com/#{@u}" = @u
+    ''s followings feeds
+  '&raquo;
+  a href="#{@u}/export" = "Get OPML"
+  = " (#{@followings.count} users)"
+
 ul
   - @followings.each do |f|
     li

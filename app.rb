@@ -6,6 +6,10 @@ Bundler.require(:default) if defined?(Bundler)
 require 'lib/simple_opml'
 require 'lib/reader'
 
+error do
+  halt 404
+end
+
 not_found do
   slim :not_found
 end
@@ -24,10 +28,9 @@ end
 get '/*/export' do |u|
   @u = Temple::Utils::escape_html u
   @followings = Octokit.following(@u)
-  halt 404 if @followings.empty?
   opml = SimpleOPML.new("GitHub #{@u}'s followings")
   @followings.each do |f|
-    opml.add("https://github.com/#{f.login}", "https://github.com/#{f.login}.atom", "#{f.login}'s Activity")
+    opml.add("https://github.com/#{f}", "https://github.com/#{f}.atom", "#{f}'s Activity")
   end
   content_type 'application/xml'
   attachment "github_#{@u}_followings_#{Date.today.strftime('%Y%m%d')}.xml"
@@ -37,7 +40,6 @@ end
 get '/*' do |u|
   @u = Temple::Utils::escape_html u
   @followings = Octokit.following(@u)
-  halt 404 if @followings.empty?
   @readers = ReaderManager.load
   slim :user
 end
