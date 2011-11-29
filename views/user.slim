@@ -1,9 +1,14 @@
 div.page-header
+  'followings |
+  a href="/#{@u}/watched" watched repos
+
   h1
     a href="https://github.com/#{@u}" = @u
-    ''s followings feeds
+    ''s followings
+
+div.well
   '&raquo;
-  a href="#{@u}/export" = "Get OPML"
+  a href="/#{@u}/export" = "Get OPML"
   = " (#{@followings.count} users)"
 
 ul

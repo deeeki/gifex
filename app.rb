@@ -25,6 +25,25 @@ get '/search' do
   redirect '/' + q
 end
 
+get '/*/watched/export' do |u|
+  @u = Temple::Utils::escape_html u
+  @repos = Octokit.watched(@u).reject{|r| r.owner == @u}
+  opml = SimpleOPML.new("GitHub #{@u}'s watched repositories")
+  @repos.each do |r|
+    opml.add("#{r.url}/commits/master", "#{r.url}/commits/master.atom", "#{r.name}:master Recent Commits")
+  end
+  content_type 'application/xml'
+  attachment "github_#{@u}_watched_repositories_#{Date.today.strftime('%Y%m%d')}.xml"
+  opml.to_s
+end
+
+get '/*/watched' do |u|
+  @u = Temple::Utils::escape_html u
+  @repos = Octokit.watched(@u).reject{|r| r.owner == @u}
+  @readers = ReaderManager.load
+  slim :watched
+end
+
 get '/*/export' do |u|
   @u = Temple::Utils::escape_html u
   @followings = Octokit.following(@u)

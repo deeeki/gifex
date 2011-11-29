@@ -1,0 +1,33 @@
+div.page-header
+  a href="/#{@u}" followings
+  '&nbsp;| watched repos
+
+  h1
+    a href="https://github.com/#{@u}" = @u
+    ''s watched repositories
+
+div.well
+  '&raquo;
+  a href="/#{@u}/watched/export" = "Get OPML"
+  = " (#{@repos.count} repos)"
+
+ul
+  - @repos.each do |repo|
+    li
+      strong = repo.name
+      '&nbsp;(by
+      a href="/#{repo.owner}" = repo.owner
+      ')
+      ul
+        li
+          a href=repo.url GitHub
+          '&nbsp;|
+          a href="#{repo.url}/commits/master" master
+          '&nbsp;|
+          a href="#{repo.url}/commits/master.atom" feed
+          - @readers.each do |r|
+            '&nbsp;
+            a href=r.add_url("#{repo.url}/commits/master.atom")
+              img src="/images/#{r.image}"
+br
+a href="/" HOME
