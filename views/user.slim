@@ -6,15 +6,15 @@ a href="#{@u}/export" = "Get OPML"
 ul
   - @followings.each do |f|
     li
-      a href="/#{f.login}" = f.login
+      a href="/#{f}" = f
       ul
         li
-          a href="https://github.com/#{f.login}" GitHub
+          a href="https://github.com/#{f}" GitHub
           '&nbsp;|
-          a href="https://github.com/#{f.login}.atom" feed
+          a href="https://github.com/#{f}.atom" feed
           - @readers.each do |r|
             '&nbsp;
-            a href=r.add_url("https://github.com/#{f.login}.atom")
+            a href=r.add_url("https://github.com/#{f}.atom")
               img src="/images/#{r.image}"
 br
 a href="/" HOME

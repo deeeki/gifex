@@ -6,16 +6,6 @@ Bundler.require(:default) if defined?(Bundler)
 require 'lib/simple_opml'
 require 'lib/reader'
 
-helpers do
-  def get_user(login)
-    begin
-      GitHub::User.get(login)
-    rescue
-      halt 404
-    end
-  end
-end
-
 not_found do
   slim :not_found
 end
@@ -33,7 +23,8 @@ end
 
 get '/*/export' do |u|
   @u = Temple::Utils::escape_html u
-  @followings = get_user(@u).fetch(:followings).followings
+  @followings = Octokit.following(@u)
+  halt 404 if @followings.empty?
   opml = SimpleOPML.new("GitHub #{@u}'s followings")
   @followings.each do |f|
     opml.add("https://github.com/#{f.login}", "https://github.com/#{f.login}.atom", "#{f.login}'s Activity")
@@ -45,7 +36,8 @@ end
 
 get '/*' do |u|
   @u = Temple::Utils::escape_html u
-  @followings = get_user(@u).fetch(:followings).followings
+  @followings = Octokit.following(@u)
+  halt 404 if @followings.empty?
   @readers = ReaderManager.load
   slim :user
 end
